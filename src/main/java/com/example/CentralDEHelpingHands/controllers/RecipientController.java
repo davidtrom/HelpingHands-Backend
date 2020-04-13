@@ -32,12 +32,13 @@ class RecipientController {
         return new ResponseEntity<>(recipientService.deleteRecipient(id), HttpStatus.OK);
     }
 
-    @PostMapping("/verify")
+    @PostMapping("/verification")
     public ResponseEntity<Recipient> verifyRecipient (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
         String email = (String) jsonData.get("email");
         String password = (String) jsonData.get("password");
         Recipient verifiedRecipient = recipientService.verifyRecipient(email, password);
+        System.out.println(verifiedRecipient);
         return (verifiedRecipient != null) ? new ResponseEntity<>(verifiedRecipient, HttpStatus.OK)
                 : new ResponseEntity<>(null, HttpStatus.NOT_FOUND);
     }
@@ -48,8 +49,13 @@ class RecipientController {
     }
 
     @GetMapping("/{recipientId}")
-    public ResponseEntity<Recipient> getRecipientbyId (@PathVariable Long recipientId){
+    public ResponseEntity<Recipient> getRecipientById (@PathVariable Long recipientId){
         return new ResponseEntity<>(recipientService.getRecipient(recipientId), HttpStatus.OK);
+    }
+
+    @PostMapping("/edit-recipient")
+    public ResponseEntity<Recipient> editRecipentProfile (@RequestBody Recipient recipient){
+        return new ResponseEntity<>(recipientService.editRecipientProfile(recipient), HttpStatus.OK);
     }
 
 }

@@ -1,20 +1,14 @@
 package com.example.CentralDEHelpingHands;
 
-import java.time.LocalDate;
-import java.util.Properties;
-import javax.mail.Message;
-import javax.mail.MessagingException;
-import javax.mail.PasswordAuthentication;
-import javax.mail.Session;
-import javax.mail.Transport;
+import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
+import java.time.LocalDate;
+import java.util.Properties;
 
-public class SendEmail {
-    public static Boolean sendMessage (String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth, String reasonForContact, String prefferedApptTime, String messsage){
+public class SendEmailToVolunteer {
 
-        //System.out.println(System.getenv(${EMAIL_PASSWORD});
-        //System.out.println(emailPassword);
+    public static Boolean sendMessageToVolunteer (String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth, String reasonForContact, String prefferedApptTime, String messsage){
 
         // Recipient's email ID needs to be mentioned.
         String to = "davidtrom@hotmail.com";
@@ -22,7 +16,7 @@ public class SendEmail {
 
         // Sender's email ID needs to be mentioned
         //String from = "ddsrwebsite2@gmail.com";
-        String from = "drmanjugoyalwebsite@gmail.com";
+        String from = "delawarehelpinghands@gmail.com";
 
         // Assuming you are sending email from through gmails smtp
         String host = "smtp.gmail.com";
@@ -41,7 +35,7 @@ public class SendEmail {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("drmanjugoyalwebsite@gmail.com", "Gautambudha2020*");
+                return new PasswordAuthentication("drmanjugoyalwebsite@gmail.com", "Password");
 
             }
 

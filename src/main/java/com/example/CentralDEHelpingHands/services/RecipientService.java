@@ -12,8 +12,8 @@ public class RecipientService {
 
     @Autowired
     private RecipientRepository recipientRepository;
-    
-    public Recipient createRecipient (Recipient recipient){
+
+    public Recipient createRecipient(Recipient recipient) {
         Recipient newRecipient = new Recipient();
         newRecipient.setFirstName(recipient.getFirstName());
         newRecipient.setLastName(recipient.getLastName());
@@ -25,45 +25,59 @@ public class RecipientService {
         return recipientRepository.save(newRecipient);
     }
 
-    public Iterable<Request> showRecipientRequests (Long id) {
-        if(recipientRepository.findById(id).isPresent()) {
+    public Iterable<Request> showRecipientRequests(Long id) {
+        if (recipientRepository.findById(id).isPresent()) {
             Recipient myRecipient = recipientRepository.findById(id).get();
             return myRecipient.getRequests();
         }
         return null;
     }
 
-    public Boolean emailAvailable (String email){
-        Iterable <Recipient> recipients = recipientRepository.findAll();
-        for(Recipient recipient : recipients){
-            if(email.equals(recipient.getEmail())){
+    public Boolean emailAvailable(String email) {
+        Iterable<Recipient> recipients = recipientRepository.findAll();
+        for (Recipient recipient : recipients) {
+            if (email.equals(recipient.getEmail())) {
                 return false;
             }
         }
         return true;
     }
 
-    public Boolean deleteRecipient (Long id){
-        if(recipientRepository.findById(id).isPresent()){
+    public Boolean deleteRecipient(Long id) {
+        if (recipientRepository.findById(id).isPresent()) {
             recipientRepository.deleteById(id);
             return true;
         }
         return false;
     }
 
-    public Recipient verifyRecipient(String email, String password){
+    public Recipient verifyRecipient(String email, String password) {
         Recipient recipientToVerify = recipientRepository.findByEmail(email);
         String[] storedInfo = recipientToVerify.getPassword().split(":");
         String salt = storedInfo[0];
         String storedPassword = storedInfo[1];
-        if(PasswordUtils.verifyUserPassword(password, storedPassword, salt)){
+        System.out.println(salt + " " + storedPassword);
+        if (PasswordUtils.verifyUserPassword(password, storedPassword, salt)) {
+            System.out.println("recipientToVerify in Service " + recipientToVerify);
             return recipientToVerify;
+        } else {
+            System.out.println("in else block");
+            return null;
         }
-        else return null;
     }
 
     public Recipient getRecipient(Long recipientId){
         return recipientRepository.findById(recipientId).get();
+    }
+
+    public Recipient editRecipientProfile (Recipient recipient){
+        Recipient recipientToEdit = recipientRepository.findById(recipient.getId()).get();
+        recipientToEdit.setFirstName(recipient.getFirstName());
+        recipientToEdit.setLastName(recipient.getLastName());
+        recipientToEdit.setPhoneNum(recipient.getPhoneNum());
+        recipientToEdit.setLocation(recipient.getLocation());
+        recipientToEdit.setLink(recipient.getLink());
+        return recipientRepository.save(recipientToEdit);
     }
 
 }
