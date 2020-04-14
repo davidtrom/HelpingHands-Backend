@@ -50,5 +50,17 @@ class VolunteerController {
         return new ResponseEntity<>(volunteerService.emailAvailable(email), HttpStatus.OK);
     }
 
+    @PostMapping("/update-profile")
+    public ResponseEntity<Volunteer> updateVolProfile (@RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        Long id = (Long) jsonData.get("id");
+        String firstName = (String) jsonData.get("firstName");
+        String lastName = (String) jsonData.get("lastName");
+        String phoneNum = (String) jsonData.get("phoneNum");
+        String email = (String) jsonData.get("email");
+        String link = (String) jsonData.get("link");
+        return new ResponseEntity<>(volunteerService.updateVolunteer(id, firstName, lastName, phoneNum, email, link), HttpStatus.OK);
+    }
+
 
 }
