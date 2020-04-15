@@ -1,6 +1,9 @@
 package com.example.CentralDEHelpingHands.controllers;
 
 import com.example.CentralDEHelpingHands.entities.Request;
+import com.example.CentralDEHelpingHands.entities.Volunteer;
+import org.json.JSONException;
+import org.json.JSONObject;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -32,8 +35,10 @@ class RequestController {
     }
 
     @PostMapping("/{requestId}/update-status")
-    public ResponseEntity<Request> updateStatus (@PathVariable Long requestId) {
-        requestService.updateStatus(requestId);
+    public ResponseEntity<Request> updateStatus (@PathVariable Long requestId, @RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        String volunteerEmail = (String) jsonData.get("email");
+        requestService.updateStatus(requestId, volunteerEmail);
         return new ResponseEntity<>(HttpStatus.OK);
     }
 

@@ -1,9 +1,12 @@
 package com.example.CentralDEHelpingHands.services;
 
+import com.example.CentralDEHelpingHands.SendEmailToRecipient;
 import com.example.CentralDEHelpingHands.entities.Recipient;
 import com.example.CentralDEHelpingHands.entities.Request;
 import com.example.CentralDEHelpingHands.entities.RequestStatus;
+import com.example.CentralDEHelpingHands.entities.Volunteer;
 import com.example.CentralDEHelpingHands.repositories.RecipientRepository;
+import com.example.CentralDEHelpingHands.repositories.VolunteerRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.CentralDEHelpingHands.repositories.RequestRepository;
@@ -16,6 +19,9 @@ public class RequestService {
 
     @Autowired
     private RequestRepository requestRepository;
+
+    @Autowired
+    private VolunteerRepository volunteerRepository;
 //    @Autowired
 //    private RecipientRepository recipientRepository;
 
@@ -53,10 +59,12 @@ public class RequestService {
         else return false;
     }
     
-    public Request updateStatus (Long id){
+    public Request updateStatus (Long id, String volEmail){
+        Volunteer myVolunteer = volunteerRepository.findByEmail(volEmail);
         Request requestToUpdate = requestRepository.findById(id).get();
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
+            SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
         }
         else {
             requestToUpdate.setRequestStatus(RequestStatus.OPEN);

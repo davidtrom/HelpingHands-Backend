@@ -1,5 +1,7 @@
 package com.example.CentralDEHelpingHands;
 
+import com.example.CentralDEHelpingHands.entities.Request;
+
 import java.time.LocalDate;
 import java.util.Properties;
 import javax.mail.Message;
@@ -12,12 +14,12 @@ import javax.mail.internet.MimeMessage;
 
 public class SendEmailToRecipient {
 
-    public static Boolean sendMessageToRecipient (String toVolEmail, String recipientName, String volFirstName, String volLastName, String email, String phoneNumber, LocalDate dateOfBirth, String reasonForContact, String prefferedApptTime, String messsage){
+    public static Boolean sendMessageToRecipient (String toRecipientEmail, String recipientName, Request helpRequest, String volFirstName, String volLastName, String phoneNumber, String email, String link){
 
         String emailPassword = System.getenv("EMAIL_PASSWORD");
 
         // Recipient's email ID needs to be mentioned.
-        String to = toVolEmail;
+        String to = toRecipientEmail;
         //String to = "davidtrom@hotmail.com";
 
 
@@ -66,12 +68,12 @@ public class SendEmailToRecipient {
 
             // Now set the actual message
             message.setText("Dear " + recipientName + "," + "\n" +
-                    "The following potential Volunteer has agreed to help you with the following Help Request: \n" + "\n" +
-                    "" +
-                    "Name: " + volFirstName +" " + volLastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
-                    "Date of Birth: " + dateOfBirth + "\n" + "Reason for Contact: " +reasonForContact + "\n" +
-                    "Preferred Appointment Time: " + prefferedApptTime + "\n" + "Message: " + messsage + "\n" + "\n" +
-                    "Sincerely yours," + "\n" + "\n" + "Website Contact "  );
+                    "The following Volunteer has agreed to help you with the following Help Request: \n" +
+                    helpRequest + "\n" +
+                    "Below you will find the Volunteer's information so you can get in touch to complete the process." + "\n" +
+                    "Volunteer Name: " + volFirstName +" " + volLastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
+                    "Social Media Link: " + link + "\n" + "\n" +
+                    "Sincerely yours," + "\n" + "\n" + "Delaware Helping Hands"  );
 
             System.out.println("sending...");
             // Send message
