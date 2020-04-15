@@ -4,8 +4,11 @@ import org.junit.jupiter.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
+import java.util.List;
+
 class VolunteerTest {
     private Volunteer volunteer;
+    private Request r1, r2, r3, r4, r5;
 
     @BeforeEach
     void setUp() {
@@ -88,5 +91,31 @@ class VolunteerTest {
     void setLink() {
         volunteer.setLink("www.facebook.com/suesmith");
         Assertions.assertEquals("www.facebook.com/suesmith", volunteer.getLink());
+    }
+
+    @Test
+    void getAgreedRequests() {
+        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 0);
+    }
+
+    @Test
+    void getAgreedRequests2() {
+        List<Request> theList = volunteer.getAgreedRequests();
+        theList.add(r1);
+        theList.add(r3);
+        theList.add(r5);
+        volunteer.setAgreedRequests(theList);
+        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 3);
+    }
+
+    @Test
+    void setAgreedRequests() {
+        List<Request> theList = volunteer.getAgreedRequests();
+        theList.add(r2);
+        theList.add(r4);
+        volunteer.setAgreedRequests(theList);
+        Request [] expectedArray = theList.toArray(new Request[theList.size()]);
+        Request [] actualArray =  volunteer.getAgreedRequests().toArray(new Request[volunteer.getAgreedRequests().size()]);
+        Assertions.assertArrayEquals(expectedArray, actualArray);
     }
 }

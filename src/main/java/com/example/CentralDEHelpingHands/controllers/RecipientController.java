@@ -32,7 +32,7 @@ class RecipientController {
         return new ResponseEntity<>(recipientService.deleteRecipient(id), HttpStatus.OK);
     }
 
-    @PostMapping("/verification")
+    @PostMapping("/verify")
     public ResponseEntity<Recipient> verifyRecipient (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
         String email = (String) jsonData.get("email");

@@ -8,6 +8,9 @@ import com.fasterxml.jackson.annotation.JsonIgnore;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.OneToMany;
+import java.util.ArrayList;
+import java.util.List;
 
 
 @Entity
@@ -22,6 +25,8 @@ public class Volunteer {
     private String email;
     private String password;
     private String link;
+    @OneToMany
+    private List<Request> agreedRequests = new ArrayList<>(0);
 
     public Volunteer() {
     }
@@ -95,5 +100,13 @@ public class Volunteer {
 
     public void setLink(String link) {
         this.link = link;
+    }
+
+    public List<Request> getAgreedRequests() {
+        return agreedRequests;
+    }
+
+    public void setAgreedRequests(List<Request> agreedRequests) {
+        this.agreedRequests = agreedRequests;
     }
 }

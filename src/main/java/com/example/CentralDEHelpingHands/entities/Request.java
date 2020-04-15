@@ -79,4 +79,14 @@ public class Request {
     public void setRequestStatus(RequestStatus requestStatus) {
         this.requestStatus = requestStatus;
     }
+
+    @Override
+    public String toString() {
+        return "Request{" +
+                "datePosted=" + datePosted +
+                ", typeOfRequest='" + typeOfRequest + '\'' +
+                ", requestDescription='" + requestDescription + '\'' +
+                ", requestStatus=" + requestStatus +
+                '}';
+    }
 }

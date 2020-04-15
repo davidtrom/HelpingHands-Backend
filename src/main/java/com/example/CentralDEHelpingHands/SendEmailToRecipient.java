@@ -69,7 +69,7 @@ public class SendEmailToRecipient {
             // Now set the actual message
             message.setText("Dear " + recipientName + "," + "\n" +
                     "The following Volunteer has agreed to help you with the following Help Request: \n" +
-                    helpRequest + "\n" +
+                    helpRequest.toString() + "\n" +
                     "Below you will find the Volunteer's information so you can get in touch to complete the process." + "\n" +
                     "Volunteer Name: " + volFirstName +" " + volLastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
                     "Social Media Link: " + link + "\n" + "\n" +
