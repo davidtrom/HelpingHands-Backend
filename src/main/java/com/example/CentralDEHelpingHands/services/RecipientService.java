@@ -7,6 +7,9 @@ import com.example.CentralDEHelpingHands.validators.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.Iterator;
+import java.util.List;
+
 @Service
 public class RecipientService {
 
@@ -19,7 +22,8 @@ public class RecipientService {
         newRecipient.setLastName(recipient.getLastName());
         newRecipient.setPhoneNum(recipient.getPhoneNum());
         newRecipient.setEmail(recipient.getEmail());
-        newRecipient.setPassword(recipient.getPassword());
+        System.out.println(recipient.getPassword());
+        //newRecipient.setPassword(recipient.getPassword());
         newRecipient.setLocation(recipient.getLocation());
         newRecipient.setLink(recipient.getLink());
         return recipientRepository.save(newRecipient);
@@ -35,8 +39,8 @@ public class RecipientService {
 
     public Boolean emailAvailable(String email) {
         Iterable<Recipient> recipients = recipientRepository.findAll();
-        for (Recipient recipient : recipients) {
-            if (email.equals(recipient.getEmail())) {
+        for(Recipient r: recipients){
+            if(r.getEmail().equals(email)) {
                 return false;
             }
         }

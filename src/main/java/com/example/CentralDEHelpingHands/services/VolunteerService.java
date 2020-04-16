@@ -1,5 +1,6 @@
 package com.example.CentralDEHelpingHands.services;
 
+import com.example.CentralDEHelpingHands.entities.Recipient;
 import com.example.CentralDEHelpingHands.entities.Volunteer;
 import com.example.CentralDEHelpingHands.repositories.VolunteerRepository;
 import com.example.CentralDEHelpingHands.validators.PasswordUtils;
@@ -38,9 +39,9 @@ public class VolunteerService {
     }
 
     public Boolean emailAvailable (String email){
-        Iterable <Volunteer> volunteers = volunteerRepository.findAll();
-        for(Volunteer volunteer : volunteers){
-            if(email.equals(volunteer.getEmail())){
+        Iterable<Volunteer> volunteers = volunteerRepository.findAll();
+        for(Volunteer v : volunteers){
+            if(v.getEmail().equals(email)) {
                 return false;
             }
         }

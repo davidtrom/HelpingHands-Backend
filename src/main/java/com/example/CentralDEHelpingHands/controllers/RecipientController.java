@@ -44,7 +44,10 @@ class RecipientController {
     }
 
     @PostMapping("/check-email")
-    public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String email){
+    public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        String email = (String) jsonData.get("email");
+        System.out.println(recipientService.emailAvailable("in controller" + email));
         return new ResponseEntity<>(recipientService.emailAvailable(email), HttpStatus.OK);
     }
 

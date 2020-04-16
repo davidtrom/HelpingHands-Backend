@@ -65,6 +65,9 @@ public class RequestService {
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
+            List<Request> listOfRequests = myVolunteer.getAgreedRequests();
+            listOfRequests.add(requestToUpdate);
+            myVolunteer.setAgreedRequests(listOfRequests);
         }
         else {
             requestToUpdate.setRequestStatus(RequestStatus.OPEN);
