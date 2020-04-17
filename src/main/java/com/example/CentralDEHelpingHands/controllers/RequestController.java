@@ -10,6 +10,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 import com.example.CentralDEHelpingHands.services.RequestService;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @RestController
@@ -45,6 +46,16 @@ class RequestController {
     @GetMapping("/{requestId}")
     public ResponseEntity<Request> showRequestDetails (@PathVariable Long requestId) {
         return new ResponseEntity<>(requestService.showRequestDetails(requestId), HttpStatus.OK);
+    }
+
+    @GetMapping("/recipient/{id}")
+    public ResponseEntity<ArrayList<Request>> getRequestsForRecipient (@PathVariable Long recipientId){
+        return new ResponseEntity<>(requestService.getThisRecipentRequests(recipientId), HttpStatus.OK);
+    }
+
+    @GetMapping("/volunteer/{id}")
+    public ResponseEntity<ArrayList<Request>> getRequestsForVolunteer (@PathVariable Long volunteerId){
+        return new ResponseEntity<>(requestService.getThisVolunteerRequests(volunteerId), HttpStatus.OK);
     }
 
 }

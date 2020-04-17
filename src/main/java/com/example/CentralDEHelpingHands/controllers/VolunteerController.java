@@ -1,4 +1,6 @@
 package com.example.CentralDEHelpingHands.controllers;
+import com.example.CentralDEHelpingHands.entities.Request;
+import com.sun.mail.iap.Response;
 import org.json.JSONObject;
 import org.json.JSONException;
 import com.example.CentralDEHelpingHands.entities.Volunteer;
@@ -7,6 +9,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/volunteers")
@@ -63,5 +67,16 @@ class VolunteerController {
         return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, email, link), HttpStatus.OK);
     }
 
+    @GetMapping("/get/{id}")
+    public ResponseEntity<Volunteer> getVolunteer (@PathVariable Long volunteerId){
+        return new ResponseEntity<>(volunteerService.getVolunteer(volunteerId), HttpStatus.OK);
+    }
 
+    @GetMapping("/my-requests/{id}")
+    public ResponseEntity<List<Request>> getVolunteerRequests (@PathVariable Long volunteerId){
+        return new ResponseEntity<>(volunteerService.getVolunteerRequests(volunteerId), HttpStatus.OK);
+    }
 }
+
+
+

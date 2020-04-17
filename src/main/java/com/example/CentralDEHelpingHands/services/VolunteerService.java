@@ -1,11 +1,12 @@
 package com.example.CentralDEHelpingHands.services;
 
-import com.example.CentralDEHelpingHands.entities.Recipient;
+import com.example.CentralDEHelpingHands.entities.Request;
 import com.example.CentralDEHelpingHands.entities.Volunteer;
 import com.example.CentralDEHelpingHands.repositories.VolunteerRepository;
 import com.example.CentralDEHelpingHands.validators.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import java.util.List;
 
 @Service
 public class VolunteerService {
@@ -65,5 +66,14 @@ public class VolunteerService {
             return volunteerToVerify;
         }
         else return null;
+    }
+
+    public Volunteer getVolunteer(Long volunteeerId){
+        return volunteerRepository.findById(volunteeerId).get();
+    }
+
+    public List<Request> getVolunteerRequests(Long volunteerId){
+        Volunteer myVolunteer = volunteerRepository.findById(volunteerId).get();
+        return myVolunteer.getAgreedRequests();
     }
 }

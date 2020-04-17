@@ -2,10 +2,7 @@ package com.example.CentralDEHelpingHands.entities;
 
 import com.fasterxml.jackson.annotation.JsonIgnore;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.Id;
-import javax.persistence.ManyToOne;
+import javax.persistence.*;
 import java.time.LocalDate;
 
 @Entity
@@ -20,16 +17,19 @@ public class Request {
     @ManyToOne
     //@JsonIgnore
     private Recipient recipient;
+    @OneToOne
+    private Volunteer volunteer;
     private RequestStatus requestStatus = RequestStatus.OPEN;
 
     public Request() {
     }
 
-    public Request(Long id, String typeOfRequest, String requestDescription, Recipient recipient) {
+    public Request(Long id, String typeOfRequest, String requestDescription, Recipient recipient, Volunteer volunteer) {
         this.id = id;
         this.typeOfRequest = typeOfRequest;
         this.requestDescription = requestDescription;
         this.recipient = recipient;
+        this.volunteer = volunteer;
     }
 
     public Long getId() {
@@ -80,13 +80,20 @@ public class Request {
         this.requestStatus = requestStatus;
     }
 
+    public Volunteer getVolunteer() {
+        return volunteer;
+    }
+
+    public void setVolunteer(Volunteer volunteer) {
+        this.volunteer = volunteer;
+    }
+
     @Override
     public String toString() {
-        return "Request{" +
-                "datePosted=" + datePosted +
-                ", typeOfRequest='" + typeOfRequest + '\'' +
-                ", requestDescription='" + requestDescription + '\'' +
-                ", requestStatus=" + requestStatus +
-                '}';
+        return "Request:" + "\n" +
+                "Date Posted: " + datePosted + "\n" +
+                "Type Of Request " + typeOfRequest + "\n" +
+                "Request Description " + requestDescription + "\n" +
+                "Request Status: " + requestStatus;
     }
 }

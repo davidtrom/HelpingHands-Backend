@@ -22,8 +22,9 @@ public class RequestService {
 
     @Autowired
     private VolunteerRepository volunteerRepository;
-//    @Autowired
-//    private RecipientRepository recipientRepository;
+
+    @Autowired
+    private RecipientRepository recipientRepository;
 
     public Request createRequest (Request request){
         Request newRequest = new Request();
@@ -65,9 +66,10 @@ public class RequestService {
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
-            List<Request> listOfRequests = myVolunteer.getAgreedRequests();
-            listOfRequests.add(requestToUpdate);
-            myVolunteer.setAgreedRequests(listOfRequests);
+            requestToUpdate.setVolunteer(myVolunteer);
+//            List<Request> listOfRequests = myVolunteer.getAgreedRequests();
+//            listOfRequests.add(requestToUpdate);
+//            myVolunteer.setAgreedRequests(listOfRequests);
         }
         else {
             requestToUpdate.setRequestStatus(RequestStatus.OPEN);
@@ -77,5 +79,29 @@ public class RequestService {
 
     public Request showRequestDetails(Long requestId) {
         return requestRepository.findById(requestId).get();
+    }
+
+    public ArrayList<Request> getThisRecipentRequests (Long recipientId) {
+        Recipient myRecipient = recipientRepository.findById(recipientId).get();
+        Iterable <Request> allRequests = requestRepository.findAll();
+        ArrayList <Request> result = new ArrayList<>();
+        for(Request r : allRequests){
+            if(r.getRecipient().equals(myRecipient)){
+                result.add(r);
+            }
+        }
+        return result;
+    }
+
+    public ArrayList<Request> getThisVolunteerRequests (Long volunterId) {
+        Volunteer myVolunteer = volunteerRepository.findById(volunterId).get();
+        Iterable <Request> allRequests = requestRepository.findAll();
+        ArrayList <Request> result = new ArrayList<>();
+        for(Request r : allRequests){
+            if(r.getVolunteer().equals(myVolunteer)){
+                result.add(r);
+            }
+        }
+        return result;
     }
 }

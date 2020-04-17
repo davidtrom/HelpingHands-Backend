@@ -9,11 +9,14 @@ import java.time.LocalDate;
 class RequestTest {
     private Request request;
     private Recipient recipient1, recipient2;
+    private Volunteer vol1, vol2;
 
     @BeforeEach
     void setUp() {
         recipient1 = new Recipient();
-        request = new Request(7L,"Pick-up", "I need a prescription picked up", recipient1 );
+        vol1 = new Volunteer();
+        vol2 = new Volunteer();
+        request = new Request(7L,"Pick-up", "I need a prescription picked up", recipient1, vol1 );
     }
 
     @Test
@@ -81,5 +84,16 @@ class RequestTest {
         request.setRequestStatus(RequestStatus.IN_PROGRESS);
         Assertions.assertEquals(RequestStatus.IN_PROGRESS, request.getRequestStatus());
 
+    }
+
+    @Test
+    void getVolunteer() {
+        Assertions.assertEquals(vol1, request.getVolunteer());
+    }
+
+    @Test
+    void setVolunteer() {
+        request.setVolunteer(vol2);
+        Assertions.assertEquals(vol2, request.getVolunteer());
     }
 }
