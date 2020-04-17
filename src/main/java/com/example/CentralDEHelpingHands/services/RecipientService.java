@@ -17,16 +17,16 @@ public class RecipientService {
     private RecipientRepository recipientRepository;
 
     public Recipient createRecipient(Recipient recipient) {
-        Recipient newRecipient = new Recipient();
-        newRecipient.setFirstName(recipient.getFirstName());
-        newRecipient.setLastName(recipient.getLastName());
-        newRecipient.setPhoneNum(recipient.getPhoneNum());
-        newRecipient.setEmail(recipient.getEmail());
-        System.out.println(recipient.getPassword());
-        //newRecipient.setPassword(recipient.getPassword());
-        newRecipient.setLocation(recipient.getLocation());
-        newRecipient.setLink(recipient.getLink());
-        return recipientRepository.save(newRecipient);
+//        Recipient newRecipient = new Recipient();
+//        newRecipient.setFirstName(recipient.getFirstName());
+//        newRecipient.setLastName(recipient.getLastName());
+//        newRecipient.setPhoneNum(recipient.getPhoneNum());
+//        newRecipient.setEmail(recipient.getEmail());
+//        System.out.println(recipient.getPassword());
+//        //newRecipient.setPassword(recipient.getPassword());
+//        newRecipient.setLocation(recipient.getLocation());
+//        newRecipient.setLink(recipient.getLink());
+        return recipientRepository.save(recipient);
     }
 
     public Iterable<Request> showRecipientRequests(Long id) {

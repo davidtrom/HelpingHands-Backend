@@ -53,27 +53,26 @@ public class RequestService {
         else return false;
     }
     
-    //PROBABLY DON'T NEED ALL THIS JUST TO CHANGE IT.  NEW METHOD TO CHANGE BACK.
     public Request updateStatus (Long requestId, String volEmail){
         Volunteer myVolunteer = volunteerRepository.findByEmail(volEmail);
         Request requestToUpdate = requestRepository.findById(requestId).get();
+        List<Request> listOfRequests = myVolunteer.getAgreedRequests();
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
             requestToUpdate.setVolunteer(myVolunteer);
-//            List<Request> listOfRequests = myVolunteer.getAgreedRequests();
-//            listOfRequests.add(requestToUpdate);
-//            myVolunteer.setAgreedRequests(listOfRequests);
+            listOfRequests.add(requestToUpdate);
+            myVolunteer.setAgreedRequests(listOfRequests);
+            volunteerRepository.save(myVolunteer);
         }
-//        else {
-//            requestToUpdate.setRequestStatus(RequestStatus.OPEN);
-//        }
         return requestRepository.save(requestToUpdate);
     }
 
+    //In Case Volunteer can't complete request, they can change status.
     public Request freeRequest (Long requestId){
         Request myRequest = requestRepository.findById(requestId).get();
         myRequest.setVolunteer(null);
+        myRequest.setRequestStatus(RequestStatus.OPEN);
         //Send an email??
         return requestRepository.save(myRequest);
     }
