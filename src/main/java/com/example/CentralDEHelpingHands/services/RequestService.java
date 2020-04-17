@@ -43,13 +43,6 @@ public class RequestService {
 
     public Iterable<Request> displayAllRequestsByDatePosted(){
         return requestRepository.findAll();
-//        Iterable <Request> requests = requestRepository.findAll();
-//        List<Request> cltnRequests = new ArrayList<>();
-//        for(Request r : requests){
-//            cltnRequests.add(r);
-//        }
-//         cltnRequests.sort(Comparator.comparing(Request::getDatePosted));
-//        return cltnRequests;
     }
 
     public Boolean deleteRequest(Long id){
@@ -60,9 +53,10 @@ public class RequestService {
         else return false;
     }
     
-    public Request updateStatus (Long id, String volEmail){
+    //PROBABLY DON'T NEED ALL THIS JUST TO CHANGE IT.  NEW METHOD TO CHANGE BACK.
+    public Request updateStatus (Long requestId, String volEmail){
         Volunteer myVolunteer = volunteerRepository.findByEmail(volEmail);
-        Request requestToUpdate = requestRepository.findById(id).get();
+        Request requestToUpdate = requestRepository.findById(requestId).get();
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
@@ -71,10 +65,17 @@ public class RequestService {
 //            listOfRequests.add(requestToUpdate);
 //            myVolunteer.setAgreedRequests(listOfRequests);
         }
-        else {
-            requestToUpdate.setRequestStatus(RequestStatus.OPEN);
-        }
+//        else {
+//            requestToUpdate.setRequestStatus(RequestStatus.OPEN);
+//        }
         return requestRepository.save(requestToUpdate);
+    }
+
+    public Request freeRequest (Long requestId){
+        Request myRequest = requestRepository.findById(requestId).get();
+        myRequest.setVolunteer(null);
+        //Send an email??
+        return requestRepository.save(myRequest);
     }
 
     public Request showRequestDetails(Long requestId) {
