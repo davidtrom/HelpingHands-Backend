@@ -22,11 +22,6 @@ class RecipientController {
         return new ResponseEntity<>(recipientService.createRecipient(recipient), HttpStatus.CREATED);
     }
 
-    @GetMapping("/requests/{id}")
-    public ResponseEntity <Iterable <Request>> showRecipientRequests (@PathVariable Long id){
-        return new ResponseEntity<>(recipientService.showRecipientRequests(id), HttpStatus.OK);
-    }
-
     @DeleteMapping("/remove/{id}")
     public ResponseEntity <Boolean> deleteRecipient (@PathVariable Long id){
         return new ResponseEntity<>(recipientService.deleteRecipient(id), HttpStatus.OK);

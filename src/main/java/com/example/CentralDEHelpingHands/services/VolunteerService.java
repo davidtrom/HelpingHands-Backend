@@ -15,13 +15,6 @@ public class VolunteerService {
     private VolunteerRepository volunteerRepository;
 
     public Volunteer createVolunteer (Volunteer volunteer){
-//        Volunteer newVolunteer = new Volunteer();
-//        newVolunteer.setFirstName(volunteer.getFirstName());
-//        newVolunteer.setLastName(volunteer.getLastName());
-//        newVolunteer.setPhoneNum(volunteer.getPhoneNum());
-//        newVolunteer.setEmail(volunteer.getEmail());
-//        newVolunteer.setPassword(volunteer.getPassword());
-//        newVolunteer.setLink(volunteer.getLink());
         return volunteerRepository.save(volunteer);
     }
 
@@ -76,8 +69,7 @@ public class VolunteerService {
         return volunteerRepository.findById(volunteeerId).get();
     }
 
-    public List<Request> getVolunteerRequests(Long volunteerId){
-        Volunteer myVolunteer = volunteerRepository.findById(volunteerId).get();
-        return myVolunteer.getAgreedRequests();
+    public Volunteer getVolunteerByEmail (String volunteerEmail){
+        return volunteerRepository.findByEmail(volunteerEmail);
     }
 }

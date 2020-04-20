@@ -75,10 +75,9 @@ class VolunteerController {
         return new ResponseEntity<>(volunteerService.getVolunteer(volunteerId), HttpStatus.OK);
     }
 
-    @GetMapping("/my-requests/{volunteerId}")
-    public ResponseEntity<List<Request>> getVolunteerRequests (@PathVariable Long volunteerId){
-        System.out.println(volunteerId);
-        return new ResponseEntity<>(volunteerService.getVolunteerRequests(volunteerId), HttpStatus.OK);
+    @GetMapping("/get-by-email/{volunteerEmail}")
+    public ResponseEntity<Volunteer> getVolunteerbyEmail(@PathVariable String volunteerEmail){
+        return new ResponseEntity<>(volunteerService.getVolunteerByEmail(volunteerEmail), HttpStatus.OK);
     }
 }
 

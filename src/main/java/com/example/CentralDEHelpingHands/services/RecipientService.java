@@ -29,14 +29,6 @@ public class RecipientService {
         return recipientRepository.save(recipient);
     }
 
-    public Iterable<Request> showRecipientRequests(Long id) {
-        if (recipientRepository.findById(id).isPresent()) {
-            Recipient myRecipient = recipientRepository.findById(id).get();
-            return myRecipient.getRequests();
-        }
-        return null;
-    }
-
     public Boolean emailAvailable(String email) {
         Iterable<Recipient> recipients = recipientRepository.findAll();
         for(Recipient r: recipients){

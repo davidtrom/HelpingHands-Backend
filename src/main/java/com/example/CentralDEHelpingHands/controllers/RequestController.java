@@ -48,7 +48,7 @@ class RequestController {
         return new ResponseEntity<>(requestService.showRequestDetails(requestId), HttpStatus.OK);
     }
 
-    @GetMapping("/free-request/{requestId}")
+    @PostMapping("/free-request/{requestId}")
     public ResponseEntity<Request> freeRequest (@PathVariable Long requestId){
         return new ResponseEntity<>(requestService.freeRequest(requestId), HttpStatus.OK);
     }
