@@ -25,9 +25,9 @@ public class Volunteer {
     private String email;
     private String password;
     private String link;
-    @OneToMany
-    @JsonIgnore
-    private List<Request> agreedRequests = new ArrayList<>();
+//    @OneToMany
+//    @JsonIgnore
+//    private List<Request> agreedRequests = new ArrayList<>();
 
 
     public Volunteer() {
@@ -104,11 +104,11 @@ public class Volunteer {
         this.link = link;
     }
 
-    public List<Request> getAgreedRequests() {
-        return agreedRequests;
-    }
-
-    public void setAgreedRequests(List<Request> agreedRequests) {
-        this.agreedRequests = agreedRequests;
-    }
+//    public List<Request> getAgreedRequests() {
+//        return agreedRequests;
+//    }
+//
+//    public void setAgreedRequests(List<Request> agreedRequests) {
+//        this.agreedRequests = agreedRequests;
+//    }
 }

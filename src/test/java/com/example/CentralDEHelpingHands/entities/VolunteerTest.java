@@ -93,29 +93,29 @@ class VolunteerTest {
         Assertions.assertEquals("www.facebook.com/suesmith", volunteer.getLink());
     }
 
-    @Test
-    void getAgreedRequests() {
-        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 0);
-    }
-
-    @Test
-    void getAgreedRequests2() {
-        List<Request> theList = volunteer.getAgreedRequests();
-        theList.add(r1);
-        theList.add(r3);
-        theList.add(r5);
-        volunteer.setAgreedRequests(theList);
-        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 3);
-    }
-
-    @Test
-    void setAgreedRequests() {
-        List<Request> theList = volunteer.getAgreedRequests();
-        theList.add(r2);
-        theList.add(r4);
-        volunteer.setAgreedRequests(theList);
-        Request [] expectedArray = theList.toArray(new Request[theList.size()]);
-        Request [] actualArray =  volunteer.getAgreedRequests().toArray(new Request[volunteer.getAgreedRequests().size()]);
-        Assertions.assertArrayEquals(expectedArray, actualArray);
-    }
+//    @Test
+//    void getAgreedRequests() {
+//        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 0);
+//    }
+//
+//    @Test
+//    void getAgreedRequests2() {
+//        List<Request> theList = volunteer.getAgreedRequests();
+//        theList.add(r1);
+//        theList.add(r3);
+//        theList.add(r5);
+//        volunteer.setAgreedRequests(theList);
+//        Assertions.assertEquals(volunteer.getAgreedRequests().size(), 3);
+//    }
+//
+//    @Test
+//    void setAgreedRequests() {
+//        List<Request> theList = volunteer.getAgreedRequests();
+//        theList.add(r2);
+//        theList.add(r4);
+//        volunteer.setAgreedRequests(theList);
+//        Request [] expectedArray = theList.toArray(new Request[theList.size()]);
+//        Request [] actualArray =  volunteer.getAgreedRequests().toArray(new Request[volunteer.getAgreedRequests().size()]);
+//        Assertions.assertArrayEquals(expectedArray, actualArray);
+//    }
 }

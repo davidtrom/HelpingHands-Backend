@@ -56,12 +56,8 @@ public class RequestService {
     public Request updateStatus (Long requestId, String volEmail){
 
         Volunteer myVolunteer = volunteerRepository.findByEmail(volEmail);
-        List<Request> requestList = myVolunteer.getAgreedRequests();
         Request requestToUpdate = requestRepository.findById(requestId).get();
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
-            requestList.add(requestToUpdate);
-            myVolunteer.setAgreedRequests(requestList);
-            volunteerRepository.save(myVolunteer);
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
             requestToUpdate.setVolunteer(myVolunteer);
@@ -72,11 +68,6 @@ public class RequestService {
     //In Case Volunteer can't complete request, they can change status.
     public Request freeRequest (Long requestId){
         Request myRequest = requestRepository.findById(requestId).get();
-        Volunteer myVolunteer = myRequest.getVolunteer();
-        List<Request> requestList = myVolunteer.getAgreedRequests();
-        requestList.remove(myRequest);
-        myVolunteer.setAgreedRequests(requestList);
-        volunteerRepository.save(myVolunteer);
         myRequest.setVolunteer(null);
         myRequest.setRequestStatus(RequestStatus.OPEN);
         //Send an email??

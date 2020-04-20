@@ -15,12 +15,12 @@ class RecipientTest {
     @BeforeEach
     void setUp() {
         recipient = new Recipient(2L, "Person", "InNeed", "302-555-9876", "helpme@gmail.com", "Th!sPassword7", "Hartley", "www.linkedin.com/davidtrom");
-        List<Request> theList = recipient.getRequests();
-        theList.add(r1);
-        theList.add(r2);
-        theList.add(r3);
-        theList.add(r4);
-        recipient.setRequests(theList);
+//        List<Request> theList = recipient.getRequests();
+//        theList.add(r1);
+//        theList.add(r2);
+//        theList.add(r3);
+//        theList.add(r4);
+//        recipient.setRequests(theList);
     }
 
     @Test
@@ -112,26 +112,26 @@ class RecipientTest {
         Assertions.assertEquals("www.facebook.com/daveT", recipient.getLink());
     }
 
-    @Test
-    void getRequests() {
-        Assertions.assertEquals(4, recipient.getRequests().size());
-    }
-
-    @Test
-    void setRequests() {
-        List<Request> thisList = recipient.getRequests();
-        thisList.add(r5);
-        thisList.add(r6);
-        recipient.setRequests(thisList);
-        Assertions.assertEquals(thisList, recipient.getRequests());
-    }
-
-    @Test
-    void setRequests2() {
-        List<Request> thisList = recipient.getRequests();
-        thisList.add(r5);
-        thisList.add(r6);
-        recipient.setRequests(thisList);
-        Assertions.assertEquals(recipient.getRequests().size(), 6);
-    }
+//    @Test
+//    void getRequests() {
+//        Assertions.assertEquals(4, recipient.getRequests().size());
+//    }
+//
+//    @Test
+//    void setRequests() {
+//        List<Request> thisList = recipient.getRequests();
+//        thisList.add(r5);
+//        thisList.add(r6);
+//        recipient.setRequests(thisList);
+//        Assertions.assertEquals(thisList, recipient.getRequests());
+//    }
+//
+//    @Test
+//    void setRequests2() {
+//        List<Request> thisList = recipient.getRequests();
+//        thisList.add(r5);
+//        thisList.add(r6);
+//        recipient.setRequests(thisList);
+//        Assertions.assertEquals(recipient.getRequests().size(), 6);
+//    }
 }
