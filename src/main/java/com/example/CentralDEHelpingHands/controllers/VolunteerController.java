@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
+@CrossOrigin(origins = "http//localhost:4200")
 @RequestMapping("/volunteers")
 class VolunteerController {
 
@@ -50,7 +51,9 @@ class VolunteerController {
     }
 
     @PostMapping("/check-email")
-    public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String email){
+    public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        String email = (String) jsonData.get("email");
         return new ResponseEntity<>(volunteerService.emailAvailable(email), HttpStatus.OK);
     }
 
@@ -67,13 +70,14 @@ class VolunteerController {
         return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, email, link), HttpStatus.OK);
     }
 
-    @GetMapping("/get/{id}")
+    @GetMapping("/get/{volunteerId}")
     public ResponseEntity<Volunteer> getVolunteer (@PathVariable Long volunteerId){
         return new ResponseEntity<>(volunteerService.getVolunteer(volunteerId), HttpStatus.OK);
     }
 
-    @GetMapping("/my-requests/{id}")
+    @GetMapping("/my-requests/{volunteerId}")
     public ResponseEntity<List<Request>> getVolunteerRequests (@PathVariable Long volunteerId){
+        System.out.println(volunteerId);
         return new ResponseEntity<>(volunteerService.getVolunteerRequests(volunteerId), HttpStatus.OK);
     }
 }

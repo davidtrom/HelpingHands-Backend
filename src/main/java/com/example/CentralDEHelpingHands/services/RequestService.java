@@ -1,6 +1,6 @@
 package com.example.CentralDEHelpingHands.services;
 
-import com.example.CentralDEHelpingHands.SendEmailToRecipient;
+import com.example.CentralDEHelpingHands.emails.SendEmailToRecipient;
 import com.example.CentralDEHelpingHands.entities.Recipient;
 import com.example.CentralDEHelpingHands.entities.Request;
 import com.example.CentralDEHelpingHands.entities.RequestStatus;
@@ -54,16 +54,17 @@ public class RequestService {
     }
     
     public Request updateStatus (Long requestId, String volEmail){
+
         Volunteer myVolunteer = volunteerRepository.findByEmail(volEmail);
+        List<Request> requestList = myVolunteer.getAgreedRequests();
         Request requestToUpdate = requestRepository.findById(requestId).get();
-        List<Request> listOfRequests = myVolunteer.getAgreedRequests();
         if(requestToUpdate.getRequestStatus().equals(RequestStatus.OPEN)){
+            requestList.add(requestToUpdate);
+            myVolunteer.setAgreedRequests(requestList);
+            volunteerRepository.save(myVolunteer);
             requestToUpdate.setRequestStatus(RequestStatus.IN_PROGRESS);
             SendEmailToRecipient.sendMessageToRecipient("davidtrom@hotmail.com", requestToUpdate.getRecipient().getFirstName(), requestToUpdate, myVolunteer.getFirstName(), myVolunteer.getLastName(), myVolunteer.getPhoneNum(), myVolunteer.getEmail(), myVolunteer.getLink());
             requestToUpdate.setVolunteer(myVolunteer);
-            listOfRequests.add(requestToUpdate);
-            myVolunteer.setAgreedRequests(listOfRequests);
-            volunteerRepository.save(myVolunteer);
         }
         return requestRepository.save(requestToUpdate);
     }
@@ -71,6 +72,11 @@ public class RequestService {
     //In Case Volunteer can't complete request, they can change status.
     public Request freeRequest (Long requestId){
         Request myRequest = requestRepository.findById(requestId).get();
+        Volunteer myVolunteer = myRequest.getVolunteer();
+        List<Request> requestList = myVolunteer.getAgreedRequests();
+        requestList.remove(myRequest);
+        myVolunteer.setAgreedRequests(requestList);
+        volunteerRepository.save(myVolunteer);
         myRequest.setVolunteer(null);
         myRequest.setRequestStatus(RequestStatus.OPEN);
         //Send an email??
@@ -81,27 +87,11 @@ public class RequestService {
         return requestRepository.findById(requestId).get();
     }
 
-    public ArrayList<Request> getThisRecipentRequests (Long recipientId) {
-        Recipient myRecipient = recipientRepository.findById(recipientId).get();
-        Iterable <Request> allRequests = requestRepository.findAll();
-        ArrayList <Request> result = new ArrayList<>();
-        for(Request r : allRequests){
-            if(r.getRecipient().equals(myRecipient)){
-                result.add(r);
-            }
-        }
-        return result;
+    public Iterable<Request> getThisRecipentRequests (Long recipientId) {
+        return requestRepository.findAllByRecipient_Id(recipientId);
     }
 
-    public ArrayList<Request> getThisVolunteerRequests (Long volunterId) {
-        Volunteer myVolunteer = volunteerRepository.findById(volunterId).get();
-        Iterable <Request> allRequests = requestRepository.findAll();
-        ArrayList <Request> result = new ArrayList<>();
-        for(Request r : allRequests){
-            if(r.getVolunteer().equals(myVolunteer)){
-                result.add(r);
-            }
-        }
-        return result;
+    public Iterable<Request> getThisVolunteerRequests (Long volunteerId) {
+        return requestRepository.findAllByVolunteer_Id(volunteerId);
     }
 }

@@ -1,8 +1,7 @@
-package com.example.CentralDEHelpingHands;
+package com.example.CentralDEHelpingHands.emails;
 
 import com.example.CentralDEHelpingHands.entities.Request;
 
-import java.time.LocalDate;
 import java.util.Properties;
 import javax.mail.Message;
 import javax.mail.MessagingException;
@@ -84,6 +83,5 @@ public class SendEmailToRecipient {
             mex.printStackTrace();
             return false;
         }
-
     }
 }

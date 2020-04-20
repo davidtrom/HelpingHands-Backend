@@ -9,4 +9,6 @@ import java.time.chrono.IsoChronology;
 
 @Repository
 public interface RequestRepository extends CrudRepository<Request, Long> {
+    Iterable<Request> findAllByVolunteer_Id(Long volunteerId);
+    Iterable<Request> findAllByRecipient_Id(Long recipientId);
 }

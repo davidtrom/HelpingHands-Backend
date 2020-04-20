@@ -15,13 +15,13 @@ public class VolunteerService {
     private VolunteerRepository volunteerRepository;
 
     public Volunteer createVolunteer (Volunteer volunteer){
-        Volunteer newVolunteer = new Volunteer();
-        newVolunteer.setFirstName(volunteer.getFirstName());
-        newVolunteer.setLastName(volunteer.getLastName());
-        newVolunteer.setPhoneNum(volunteer.getPhoneNum());
-        newVolunteer.setEmail(volunteer.getEmail());
-        newVolunteer.setPassword(volunteer.getPassword());
-        newVolunteer.setLink(volunteer.getLink());
+//        Volunteer newVolunteer = new Volunteer();
+//        newVolunteer.setFirstName(volunteer.getFirstName());
+//        newVolunteer.setLastName(volunteer.getLastName());
+//        newVolunteer.setPhoneNum(volunteer.getPhoneNum());
+//        newVolunteer.setEmail(volunteer.getEmail());
+//        newVolunteer.setPassword(volunteer.getPassword());
+//        newVolunteer.setLink(volunteer.getLink());
         return volunteerRepository.save(volunteer);
     }
 
@@ -40,12 +40,16 @@ public class VolunteerService {
     }
 
     public Boolean emailAvailable (String email){
+        //Boolean check = true;
         Iterable<Volunteer> volunteers = volunteerRepository.findAll();
         for(Volunteer v : volunteers){
             if(v.getEmail().equals(email)) {
+                //check = false;
+                System.out.println(v.getEmail());
                 return false;
             }
         }
+        //System.out.println(check);
         return true;
     }
 

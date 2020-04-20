@@ -79,6 +79,7 @@ public class RecipientService {
         recipientToEdit.setFirstName(recipient.getFirstName());
         recipientToEdit.setLastName(recipient.getLastName());
         recipientToEdit.setPhoneNum(recipient.getPhoneNum());
+        recipientToEdit.setEmail(recipient.getEmail());
         recipientToEdit.setLocation(recipient.getLocation());
         recipientToEdit.setLink(recipient.getLink());
         return recipientRepository.save(recipientToEdit);

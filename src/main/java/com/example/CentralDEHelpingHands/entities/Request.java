@@ -17,7 +17,7 @@ public class Request {
     @ManyToOne
     //@JsonIgnore
     private Recipient recipient;
-    @OneToOne
+    @ManyToOne
     private Volunteer volunteer;
     private RequestStatus requestStatus = RequestStatus.OPEN;
 
@@ -92,8 +92,8 @@ public class Request {
     public String toString() {
         return "Request:" + "\n" +
                 "Date Posted: " + datePosted + "\n" +
-                "Type Of Request " + typeOfRequest + "\n" +
-                "Request Description " + requestDescription + "\n" +
+                "Type Of Request: " + typeOfRequest + "\n" +
+                "Request Description: " + requestDescription + "\n" +
                 "Request Status: " + requestStatus;
     }
 }

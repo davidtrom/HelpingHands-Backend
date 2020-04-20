@@ -1,18 +1,22 @@
-package com.example.CentralDEHelpingHands;
+package com.example.CentralDEHelpingHands.emails;
+
+import com.example.CentralDEHelpingHands.entities.Request;
 
 import javax.mail.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
-import java.time.LocalDate;
 import java.util.Properties;
 
-public class SendEmailToVolunteer {
+public class SendFreeRequestEmail {
 
-    public static Boolean sendMessageToVolunteer (String firstName, String lastName, String email, String phoneNumber, LocalDate dateOfBirth, String reasonForContact, String prefferedApptTime, String messsage){
+    public static Boolean sendMessageToRecipient (String toRecipientEmail, String recipientName, Request helpRequest, String volFirstName, String volLastName, String phoneNumber, String email, String link){
+
+        String emailPassword = System.getenv("EMAIL_PASSWORD");
 
         // Recipient's email ID needs to be mentioned.
-        String to = "davidtrom@hotmail.com";
-        //String to = "dtrombello@gmail.com";
+        String to = toRecipientEmail;
+        //String to = "davidtrom@hotmail.com";
+
 
         // Sender's email ID needs to be mentioned
         //String from = "ddsrwebsite2@gmail.com";
@@ -35,7 +39,7 @@ public class SendEmailToVolunteer {
 
             protected PasswordAuthentication getPasswordAuthentication() {
 
-                return new PasswordAuthentication("drmanjugoyalwebsite@gmail.com", "Password");
+                return new PasswordAuthentication("delawarehelpinghands@gmail.com", emailPassword);
 
             }
 
@@ -55,15 +59,16 @@ public class SendEmailToVolunteer {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Potential Patient Requests Information!");
+            message.setSubject("Someone Wants to Help!");
 
             // Now set the actual message
-            message.setText("Dr. Goyal, \n" +
-                    "The following potential patient has filled out their contact information as follows: \n" + "\n" +
-                    "Name: " + firstName +" " + lastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
-                    "Date of Birth: " + dateOfBirth + "\n" + "Reason for Contact: " +reasonForContact + "\n" +
-                    "Preferred Appointment Time: " + prefferedApptTime + "\n" + "Message: " + messsage + "\n" + "\n" +
-                    "Sincerely yours," + "\n" + "\n" + "Website Contact "  );
+            message.setText("Dear " + recipientName + "," + "\n" +
+                    "The following Volunteer has agreed to help you with the following Help Request: \n" +
+                    helpRequest.toString() + "\n" +
+                    "Below you will find the Volunteer's information so you can get in touch to complete the process." + "\n" +
+                    "Volunteer Name: " + volFirstName +" " + volLastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
+                    "Social Media Link: " + link + "\n" + "\n" +
+                    "Sincerely yours," + "\n" + "\n" + "Delaware Helping Hands"  );
 
             System.out.println("sending...");
             // Send message
@@ -74,6 +79,5 @@ public class SendEmailToVolunteer {
             mex.printStackTrace();
             return false;
         }
-
     }
 }

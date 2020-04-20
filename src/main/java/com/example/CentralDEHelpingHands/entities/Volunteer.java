@@ -26,7 +26,9 @@ public class Volunteer {
     private String password;
     private String link;
     @OneToMany
-    private List<Request> agreedRequests = new ArrayList<>(0);
+    @JsonIgnore
+    private List<Request> agreedRequests = new ArrayList<>();
+
 
     public Volunteer() {
     }

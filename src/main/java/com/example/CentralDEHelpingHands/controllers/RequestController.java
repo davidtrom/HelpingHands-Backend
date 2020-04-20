@@ -48,13 +48,18 @@ class RequestController {
         return new ResponseEntity<>(requestService.showRequestDetails(requestId), HttpStatus.OK);
     }
 
-    @GetMapping("/recipient/{id}")
-    public ResponseEntity<ArrayList<Request>> getRequestsForRecipient (@PathVariable Long recipientId){
+    @GetMapping("/free-request/{requestId}")
+    public ResponseEntity<Request> freeRequest (@PathVariable Long requestId){
+        return new ResponseEntity<>(requestService.freeRequest(requestId), HttpStatus.OK);
+    }
+
+    @GetMapping("/recipient/{recipientId}")
+    public ResponseEntity<Iterable<Request>> getRequestsForRecipient (@PathVariable Long recipientId){
         return new ResponseEntity<>(requestService.getThisRecipentRequests(recipientId), HttpStatus.OK);
     }
 
-    @GetMapping("/volunteer/{id}")
-    public ResponseEntity<ArrayList<Request>> getRequestsForVolunteer (@PathVariable Long volunteerId){
+    @GetMapping("/volunteer/{volunteerId}")
+    public ResponseEntity<Iterable<Request>> getRequestsForVolunteer (@PathVariable Long volunteerId){
         return new ResponseEntity<>(requestService.getThisVolunteerRequests(volunteerId), HttpStatus.OK);
     }
 
