@@ -70,6 +70,7 @@ public class VolunteerService {
     }
 
     public Volunteer getVolunteerByEmail (String volunteerEmail){
+        System.out.println("in service " + volunteerRepository.findByEmail(volunteerEmail).toString());
         return volunteerRepository.findByEmail(volunteerEmail);
     }
 }

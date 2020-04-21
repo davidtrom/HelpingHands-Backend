@@ -75,8 +75,10 @@ class VolunteerController {
         return new ResponseEntity<>(volunteerService.getVolunteer(volunteerId), HttpStatus.OK);
     }
 
-    @GetMapping("/get-by-email/{volunteerEmail}")
-    public ResponseEntity<Volunteer> getVolunteerbyEmail(@PathVariable String volunteerEmail){
+    @GetMapping("/{volunteerEmail}/get-by-email")
+    public ResponseEntity<Volunteer> getVolunteerByEmail(@PathVariable String volunteerEmail){
+        System.out.println("in controller");
+        System.out.println(volunteerEmail);
         return new ResponseEntity<>(volunteerService.getVolunteerByEmail(volunteerEmail), HttpStatus.OK);
     }
 }
