@@ -26,9 +26,7 @@ public class Recipient {
     private String password;
     private String location;
     private String link;
-//    @OneToMany
-//    @JsonIgnore
-//    private List<Request> requests = new ArrayList<>(0);
+
 
     public Recipient() {
     }
@@ -112,12 +110,4 @@ public class Recipient {
     public void setLink(String link) {
         this.link = link;
     }
-
-//    public List<Request> getRequests() {
-//        return requests;
-//    }
-//
-//    public void setRequests(List<Request> requests) {
-//        this.requests = requests;
-//    }
 }

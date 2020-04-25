@@ -9,7 +9,7 @@ import java.util.Properties;
 
 public class SendFreeRequestEmail {
 
-    public static Boolean sendMessageToRecipient (String toRecipientEmail, String recipientName, Request helpRequest, String volFirstName, String volLastName, String phoneNumber, String email, String link){
+    public static Boolean sendMessageToRecipient (String toRecipientEmail, String recipientName, Request helpRequest){
 
         String emailPassword = System.getenv("EMAIL_PASSWORD");
 
@@ -63,11 +63,10 @@ public class SendFreeRequestEmail {
 
             // Now set the actual message
             message.setText("Dear " + recipientName + "," + "\n" +
-                    "The following Volunteer has agreed to help you with the following Help Request: \n" +
+                    "This email is to inform you that your Volunteer has decided that they are unable to help you with the following Help Request at this time: \n" +
                     helpRequest.toString() + "\n" +
-                    "Below you will find the Volunteer's information so you can get in touch to complete the process." + "\n" +
-                    "Volunteer Name: " + volFirstName +" " + volLastName + "\n" + "Email: " + email + "\n" + "Phone Number: " + phoneNumber + "\n" +
-                    "Social Media Link: " + link + "\n" + "\n" +
+                    "We are sorry for this inconvenience to you, but during such uncertain times, things like this happen.  Your request will be once again" +
+                    "be re-opened for another potential Volunteer to help.  Please stay safe!" +
                     "Sincerely yours," + "\n" + "\n" + "Delaware Helping Hands"  );
 
             System.out.println("sending...");

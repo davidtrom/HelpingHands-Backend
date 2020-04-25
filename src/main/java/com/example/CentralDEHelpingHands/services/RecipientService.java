@@ -77,4 +77,7 @@ public class RecipientService {
         return recipientRepository.save(recipientToEdit);
     }
 
+    public Recipient getRecipientByEmail (String email) {
+        return recipientRepository.findByEmail(email);
+    }
 }

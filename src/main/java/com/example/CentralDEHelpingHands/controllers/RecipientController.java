@@ -55,4 +55,9 @@ class RecipientController {
         return new ResponseEntity<>(recipientService.editRecipientProfile(recipient), HttpStatus.OK);
     }
 
+    @GetMapping("/{recipientEmail}/get-by-email")
+    public ResponseEntity<Recipient> getRecipientByEmail (@PathVariable String recipientEmail){
+        return new ResponseEntity<>(recipientService.getRecipientByEmail(recipientEmail), HttpStatus.OK);
+    }
+
 }

@@ -1,6 +1,7 @@
 package com.example.CentralDEHelpingHands.services;
 
 import com.example.CentralDEHelpingHands.emails.SendEmailToRecipient;
+import com.example.CentralDEHelpingHands.emails.SendFreeRequestEmail;
 import com.example.CentralDEHelpingHands.entities.Recipient;
 import com.example.CentralDEHelpingHands.entities.Request;
 import com.example.CentralDEHelpingHands.entities.RequestStatus;
@@ -68,9 +69,11 @@ public class RequestService {
     //In Case Volunteer can't complete request, they can change status.
     public Request freeRequest (Long requestId){
         Request myRequest = requestRepository.findById(requestId).get();
+        Recipient poorRecipient = myRequest.getRecipient();
+        SendFreeRequestEmail.sendMessageToRecipient(poorRecipient.getEmail(), poorRecipient.getFirstName(), myRequest);
         myRequest.setVolunteer(null);
         myRequest.setRequestStatus(RequestStatus.OPEN);
-        //Send an email??
+
         return requestRepository.save(myRequest);
     }
 
@@ -85,4 +88,14 @@ public class RequestService {
     public Iterable<Request> getThisVolunteerRequests (Long volunteerId) {
         return requestRepository.findAllByVolunteer_Id(volunteerId);
     }
+
+//    public Iterable<Request> orderByCity (){
+//        Iterable<Request> myRequests = requestRepository.findAll();
+//        List<Request> myList = new ArrayList<>();
+//        myList.sort(String.CASE_INSENSITIVE_ORDER);
+//        for (Request req : myRequests) {
+//            myList.add(req);
+//        }
+//        Collections.sort(myList);
+//    }
 }
