@@ -64,10 +64,9 @@ class VolunteerController {
         String firstName = (String) jsonData.get("firstName");
         String lastName = (String) jsonData.get("lastName");
         String phoneNum = (String) jsonData.get("phoneNum");
-        String email = (String) jsonData.get("email");
         String link = (String) jsonData.get("link");
         System.out.println(lastName + " " + firstName);
-        return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, email, link), HttpStatus.OK);
+        return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, link), HttpStatus.OK);
     }
 
     @GetMapping("/get/{volunteerId}")

@@ -14,8 +14,8 @@ public class SendFreeRequestEmail {
         String emailPassword = System.getenv("EMAIL_PASSWORD");
 
         // Recipient's email ID needs to be mentioned.
-        String to = toRecipientEmail;
-        //String to = "davidtrom@hotmail.com";
+        //String to = toRecipientEmail;
+        String to = "davidtrom@hotmail.com";
 
 
         // Sender's email ID needs to be mentioned
@@ -66,7 +66,7 @@ public class SendFreeRequestEmail {
                     "This email is to inform you that your Volunteer has decided that they are unable to help you with the following Help Request at this time: \n" +
                     helpRequest.toString() + "\n" +
                     "We are sorry for this inconvenience to you, but during such uncertain times, things like this happen.  Your request will be once again" +
-                    "be re-opened for another potential Volunteer to help.  Please stay safe!" +
+                    "be re-opened for another potential Volunteer to help.  Please stay safe!" + "\n" +
                     "Sincerely yours," + "\n" + "\n" + "Delaware Helping Hands"  );
 
             System.out.println("sending...");

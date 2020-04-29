@@ -12,8 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.example.CentralDEHelpingHands.repositories.RequestRepository;
 
-import java.util.*;
-
 
 @Service
 public class RequestService {

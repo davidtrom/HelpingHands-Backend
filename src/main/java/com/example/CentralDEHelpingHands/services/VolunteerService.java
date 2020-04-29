@@ -18,12 +18,11 @@ public class VolunteerService {
         return volunteerRepository.save(volunteer);
     }
 
-    public Volunteer updateVolunteer(Long id, String firstName, String lastName, String phoneNum, String email, String link){
+    public Volunteer updateVolunteer(Long id, String firstName, String lastName, String phoneNum, String link){
         Volunteer volunteerToUpdate = volunteerRepository.findById(id).get();
         volunteerToUpdate.setFirstName(firstName);
         volunteerToUpdate.setLastName(lastName);
         volunteerToUpdate.setPhoneNum(phoneNum);
-        volunteerToUpdate.setEmail(email);
         volunteerToUpdate.setLink(link);
         return volunteerRepository.save(volunteerToUpdate);
     }
