@@ -87,7 +87,7 @@ class VolunteerController {
     }
 
     @PostMapping("/update-password")
-    public ResponseEntity<Volunteer> updatePassword(@RequestBody String data) throws JSONException {
+    public ResponseEntity<Boolean> updatePassword(@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
         Long volunteerId = (Long) jsonData.get("id");
         String password = (String) jsonData.get("password");
