@@ -23,6 +23,7 @@ public class Recipient {
     private String lastName;
     private String phoneNum;
     private String email;
+    @JsonIgnore
     private String password;
     private String location;
     private String link;

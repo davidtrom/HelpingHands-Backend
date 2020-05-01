@@ -71,4 +71,25 @@ public class VolunteerService {
     public Volunteer getVolunteerByEmail (String volunteerEmail){
         return volunteerRepository.findByEmail(volunteerEmail);
     }
+
+    public Volunteer updateVolunteerEmail(String currentEmail, String newEmail){
+        Volunteer volunteerToUpdate = volunteerRepository.findByEmail(currentEmail);
+        if (emailAvailable(newEmail)) {
+            volunteerToUpdate.setEmail(newEmail);
+            return volunteerRepository.save(volunteerToUpdate);
+        }
+        else return null;
+    }
+
+    public Boolean updateVolunteerPassword(Long volunteerId, String password, String newPassword){
+        Volunteer volunteerToUpdate = volunteerRepository.findById(volunteerId).get();
+        String [] passwordInfo = volunteerToUpdate.getPassword().split(":");
+        boolean verified = PasswordUtils.verifyUserPassword(password, passwordInfo[1], passwordInfo[0]);
+        if(verified){
+            volunteerToUpdate.setPassword(newPassword);
+            volunteerRepository.save(volunteerToUpdate);
+            return true;
+        }
+        else return false;
+    }
 }

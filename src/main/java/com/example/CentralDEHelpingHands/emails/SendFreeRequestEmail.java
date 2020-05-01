@@ -59,7 +59,7 @@ public class SendFreeRequestEmail {
             message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
 
             // Set Subject: header field
-            message.setSubject("Someone Wants to Help!");
+            message.setSubject("Unable to Help");
 
             // Now set the actual message
             message.setText("Dear " + recipientName + "," + "\n" +

@@ -23,6 +23,7 @@ public class Volunteer {
     private String lastName;
     private String phoneNum;
     private String email;
+    @JsonIgnore
     private String password;
     private String link;
 //    @OneToMany

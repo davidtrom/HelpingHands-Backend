@@ -1,6 +1,5 @@
 package com.example.CentralDEHelpingHands.controllers;
 import com.example.CentralDEHelpingHands.entities.Request;
-import com.sun.mail.iap.Response;
 import org.json.JSONObject;
 import org.json.JSONException;
 import com.example.CentralDEHelpingHands.entities.Volunteer;
@@ -60,13 +59,13 @@ class VolunteerController {
     @PostMapping("/update-profile")
     public ResponseEntity<Volunteer> updateVolProfile (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
-        Integer id = (Integer) jsonData.get("id");
+        Long id = (Long) jsonData.get("id");
         String firstName = (String) jsonData.get("firstName");
         String lastName = (String) jsonData.get("lastName");
         String phoneNum = (String) jsonData.get("phoneNum");
         String link = (String) jsonData.get("link");
-        System.out.println(lastName + " " + firstName);
-        return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, link), HttpStatus.OK);
+        //System.out.println(lastName + " " + firstName);
+        return new ResponseEntity<>(volunteerService.updateVolunteer(id, firstName, lastName, phoneNum, link), HttpStatus.OK);
     }
 
     @GetMapping("/get/{volunteerId}")
@@ -77,6 +76,23 @@ class VolunteerController {
     @GetMapping("/{volunteerEmail}/get-by-email")
     public ResponseEntity<Volunteer> getVolunteerByEmail(@PathVariable String volunteerEmail){
         return new ResponseEntity<>(volunteerService.getVolunteerByEmail(volunteerEmail), HttpStatus.OK);
+    }
+
+    @PostMapping("/update-email")
+    public ResponseEntity<Volunteer> updateLogin(@RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        String currentEmail = (String) jsonData.get("currentEmail");
+        String newEmail = (String) jsonData.get("newEmail");
+        return new ResponseEntity<>(volunteerService.updateVolunteerEmail(currentEmail, newEmail), HttpStatus.OK);
+    }
+
+    @PostMapping("/update-password")
+    public ResponseEntity<Volunteer> updatePassword(@RequestBody String data) throws JSONException {
+        JSONObject jsonData = new JSONObject(data);
+        Long volunteerId = (Long) jsonData.get("id");
+        String password = (String) jsonData.get("password");
+        String newPassword = (String) jsonData.get("newPassword");
+        return new ResponseEntity<>(volunteerService.updateVolunteerPassword(volunteerId, password, newPassword), HttpStatus.OK);
     }
 }
 
