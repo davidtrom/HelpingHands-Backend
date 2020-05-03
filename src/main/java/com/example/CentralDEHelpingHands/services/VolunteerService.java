@@ -3,7 +3,9 @@ package com.example.CentralDEHelpingHands.services;
 import com.example.CentralDEHelpingHands.entities.Request;
 import com.example.CentralDEHelpingHands.entities.Volunteer;
 import com.example.CentralDEHelpingHands.repositories.VolunteerRepository;
+import com.example.CentralDEHelpingHands.validators.EmailValidator;
 import com.example.CentralDEHelpingHands.validators.PasswordUtils;
+import com.example.CentralDEHelpingHands.validators.PasswordValidator;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import java.util.List;
@@ -31,18 +33,25 @@ public class VolunteerService {
         return volunteerRepository.findAll();
     }
 
-    public Boolean emailAvailable (String email){
-        //Boolean check = true;
-        Iterable<Volunteer> volunteers = volunteerRepository.findAll();
-        for(Volunteer v : volunteers){
-            if(v.getEmail().equals(email)) {
-                //check = false;
-                System.out.println(v.getEmail());
-                return false;
-            }
+    public Boolean emailTaken (String email){
+        Volunteer thisVolunteer = volunteerRepository.findByEmail(email);
+        if(thisVolunteer == null){
+            return false;
         }
-        //System.out.println(check);
-        return true;
+        else return true;
+
+//        Boolean check = null;
+//        Iterable<Volunteer> volunteers = volunteerRepository.findAll();
+//        for(Volunteer v : volunteers){
+//            if(v.getEmail().equals(email)) {
+//                System.out.println(v.getEmail());
+//                check = true;
+//                //System.out.println(check);
+//            }
+//            else check = false;
+//        }
+//        System.out.println(check);
+//        return check;
     }
 
     public Boolean deleteVolunteerById (Long id){
@@ -74,11 +83,11 @@ public class VolunteerService {
 
     public Volunteer updateVolunteerEmail(String currentEmail, String newEmail){
         Volunteer volunteerToUpdate = volunteerRepository.findByEmail(currentEmail);
-        if (emailAvailable(newEmail)) {
+//        if(emailTaken(newEmail)){
             volunteerToUpdate.setEmail(newEmail);
             return volunteerRepository.save(volunteerToUpdate);
-        }
-        else return null;
+//        }
+//        else return null;
     }
 
     public Boolean updateVolunteerPassword(Long volunteerId, String password, String newPassword){

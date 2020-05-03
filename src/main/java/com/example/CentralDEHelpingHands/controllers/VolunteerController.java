@@ -53,19 +53,19 @@ class VolunteerController {
     public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
         String email = (String) jsonData.get("email");
-        return new ResponseEntity<>(volunteerService.emailAvailable(email), HttpStatus.OK);
+        return new ResponseEntity<>(volunteerService.emailTaken(email), HttpStatus.OK);
     }
 
     @PostMapping("/update-profile")
     public ResponseEntity<Volunteer> updateVolProfile (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
-        Long id = (Long) jsonData.get("id");
+        Integer id = (Integer) jsonData.get("id");
         String firstName = (String) jsonData.get("firstName");
         String lastName = (String) jsonData.get("lastName");
         String phoneNum = (String) jsonData.get("phoneNum");
         String link = (String) jsonData.get("link");
         //System.out.println(lastName + " " + firstName);
-        return new ResponseEntity<>(volunteerService.updateVolunteer(id, firstName, lastName, phoneNum, link), HttpStatus.OK);
+        return new ResponseEntity<>(volunteerService.updateVolunteer(Long.valueOf(id), firstName, lastName, phoneNum, link), HttpStatus.OK);
     }
 
     @GetMapping("/get/{volunteerId}")
@@ -89,10 +89,10 @@ class VolunteerController {
     @PostMapping("/update-password")
     public ResponseEntity<Boolean> updatePassword(@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
-        Long volunteerId = (Long) jsonData.get("id");
+        Integer volunteerId = (Integer) jsonData.get("id");
         String password = (String) jsonData.get("password");
         String newPassword = (String) jsonData.get("newPassword");
-        return new ResponseEntity<>(volunteerService.updateVolunteerPassword(volunteerId, password, newPassword), HttpStatus.OK);
+        return new ResponseEntity<>(volunteerService.updateVolunteerPassword(Long.valueOf(volunteerId), password, newPassword), HttpStatus.OK);
     }
 }
 
