@@ -2,6 +2,7 @@ package com.example.CentralDEHelpingHands.services;
 
 import com.example.CentralDEHelpingHands.entities.Recipient;
 import com.example.CentralDEHelpingHands.entities.Request;
+import com.example.CentralDEHelpingHands.entities.Volunteer;
 import com.example.CentralDEHelpingHands.repositories.RecipientRepository;
 import com.example.CentralDEHelpingHands.validators.PasswordUtils;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -29,14 +30,12 @@ public class RecipientService {
         return recipientRepository.save(recipient);
     }
 
-    public Boolean emailAvailable(String email) {
-        Iterable<Recipient> recipients = recipientRepository.findAll();
-        for(Recipient r: recipients){
-            if(r.getEmail().equals(email)) {
-                return false;
-            }
+    public Boolean emailTaken(String email) {
+        Recipient thisRecipient = recipientRepository.findByEmail(email);
+        if(thisRecipient == null){
+            return false;
         }
-        return true;
+        else return true;
     }
 
     public Boolean deleteRecipient(Long id) {

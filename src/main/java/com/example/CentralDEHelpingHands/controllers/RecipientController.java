@@ -42,7 +42,7 @@ class RecipientController {
     public ResponseEntity<Boolean> isVolunteerEmailAvailable (@RequestBody String data) throws JSONException {
         JSONObject jsonData = new JSONObject(data);
         String email = (String) jsonData.get("email");
-        return new ResponseEntity<>(recipientService.emailAvailable(email), HttpStatus.OK);
+        return new ResponseEntity<>(recipientService.emailTaken(email), HttpStatus.OK);
     }
 
     @GetMapping("/{recipientId}")
